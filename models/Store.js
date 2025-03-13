@@ -3,8 +3,9 @@ import { Schema, model } from "mongoose";
 let collection = "stores";
 let schema = Schema({
     name:{type: String, required: true},
-    adress:{type: String, required: true},
-    phoneNumber:{type: String, required: true}
+    address:{type: String, required: true},
+    phoneNumber:{type: String, required: true},
+    open24hrs:{type: Boolean, required: true}
 },{
     timestamps: true
 })
