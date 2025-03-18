@@ -7,9 +7,7 @@ let allStore = async (req, res, next) => {
             response: all
         });
     } catch (error) {
-        return res.status(500).json({
-            response: error
-        });
+        next(error)
     }
 }
 
@@ -23,11 +21,24 @@ let storeByName = async(req,res,next)=>{
             response: all
         })
     } catch (error) {
-        return res.status(500).json({
-            response: error
-        })
+         next(error)
     }
 }
+
+let storeByAddress = async (req, res, next) => {
+    try {
+        let addressQuery = req.params.address;
+        console.log(addressQuery);
+
+        let stores = await Store.find({ address: addressQuery }); 
+
+        return res.status(200).json({
+            response: stores
+        });
+    } catch (error) {
+        next(error)
+    }
+};
 
 let storeById = async (req,res,next)=>{
     try {
@@ -39,11 +50,9 @@ let storeById = async (req,res,next)=>{
             response: all
         })
     } catch (error) {
-        return res.status(500).json({
-            response: error
-        })
+        next(error)
     }
 }
 
-export {allStore, storeByName, storeById}; 
+export {allStore, storeByName, storeByAddress, storeById}; 
 

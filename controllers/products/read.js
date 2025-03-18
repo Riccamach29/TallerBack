@@ -7,9 +7,7 @@ let allProduct = async (req, res, next) => {
             response: all
         });
     } catch (error) {
-        return res.status(500).json({
-            response: error
-        });
+        next(error)
     }
 }
 
@@ -23,11 +21,24 @@ let productByName = async(req,res,next)=>{
             response: all
         })
     } catch (error) {
-        return res.status(500).json({
-            response: error
-        })
+       next(error)
     }
 }
+
+let productByType = async (req, res, next) => {
+    try {
+        let typeQuery = req.params.type;
+        console.log(typeQuery);
+
+        let products = await Product.find({ type: typeQuery });
+
+        return res.status(200).json({
+            response: products
+        });
+    } catch (error) {
+        next(error)
+    }
+};
 
 let productById = async (req,res,next)=>{
     try {
@@ -38,11 +49,9 @@ let productById = async (req,res,next)=>{
             response: all
         })
     } catch (error) {
-        return res.status(500).json({
-            response: error
-        })
+        next(error)
     }
 }
 
-export {allProduct, productByName, productById}; 
+export {allProduct, productByName, productByType, productById}; 
 
